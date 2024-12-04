@@ -11,11 +11,9 @@ public class MazeConstructor : MonoBehaviour
     public GameObject agentGO;
     [SerializeField] private Material mazeMat1;
     [SerializeField] private Material mazeMat2;
-    [SerializeField] public Material goalMat;
 
     private MazeDataGenerator dataGenerator;
     private MazeMeshGenerator meshGenerator;
-    //public RollerAgent rollerAgentScript;
 
     public int xSize = 13;
     public int ySize = 15;
@@ -293,21 +291,21 @@ public class MazeConstructor : MonoBehaviour
     }
 
     public void SpawnTargets()
-    { 
-        //Vector3 targetLoc = new Vector3();
-        //int i = 0;
-        //while (i < maxTargets)
-        //{
-        //    targetLoc = GetRandVector();
-        //    GameObject targetGO = Instantiate(targetObject, new Vector3(transformPos.x + targetLoc.x * hallWidth, transformPos.y + targetObject.transform.localScale.y/2, transformPos.z + targetLoc.z * hallWidth), Quaternion.identity);
-        //    //add gameobject to an array
-        //    targetGOList.Add(targetGO);
-        //    targetGO.transform.parent = gameObject.transform;
-        //    TargetObject targetObjectScript = targetGO.GetComponent<TargetObject>();
-        //    targetObjectScript.xPos = (int)targetLoc.x;
-        //    targetObjectScript.zPos = (int)targetLoc.z;
-        //    i++;
-        //}
+    {
+        Vector3 targetLoc = new Vector3();
+        int i = 0;
+        while (i < maxTargets)
+        {
+            targetLoc = GetRandVector();
+            GameObject targetGO = Instantiate(targetObject, new Vector3(transformPos.x + targetLoc.x * hallWidth, transformPos.y + targetObject.transform.localScale.y / 2, transformPos.z + targetLoc.z * hallWidth), Quaternion.identity);
+            //add gameobject to an array
+            targetGOList.Add(targetGO);
+            targetGO.transform.parent = gameObject.transform;
+            TargetObject targetObjectScript = targetGO.GetComponent<TargetObject>();
+            targetObjectScript.xPos = (int)targetLoc.x;
+            targetObjectScript.zPos = (int)targetLoc.z;
+            i++;
+        }
     }
 
 
