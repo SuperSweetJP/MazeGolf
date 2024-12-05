@@ -9,8 +9,9 @@ public class MazeConstructor : MonoBehaviour
     public float placementTreshold = .68f;
 
     public GameObject agentGO;
-    [SerializeField] private Material mazeMat1;
-    [SerializeField] private Material mazeMat2;
+    [SerializeField] private Material floorMat;
+    [SerializeField] private Material wallMat;
+    [SerializeField] private Material roofMat;
 
     private MazeDataGenerator dataGenerator;
     private MazeMeshGenerator meshGenerator;
@@ -129,7 +130,7 @@ public class MazeConstructor : MonoBehaviour
         mc.sharedMesh = mf.mesh;
 
         MeshRenderer mr = go.AddComponent<MeshRenderer>();
-        mr.materials = new Material[2] { mazeMat1, mazeMat2 };
+        mr.materials = new Material[3] { floorMat, wallMat, roofMat };
     }
 
 
@@ -172,11 +173,11 @@ public class MazeConstructor : MonoBehaviour
 
     public void setupWorld()
     {
-        SpawnTargets();
+        // SpawnTargets();
         //place player
         FindRandomPosition();
         //this.transform.position = new Vector3(mazeConstructor.randLoc.x * mazeConstructor.hallWidth, this.transform.localScale.y/2, mazeConstructor.randLoc.z * mazeConstructor.hallWidth);
-        agentObject = Instantiate(agentGO, new Vector3(transformPos.x + randLoc.x * hallWidth, transformPos.y + this.transform.localScale.y / 2, transformPos.z + randLoc.z * hallWidth), Quaternion.identity);
+        agentObject = Instantiate(agentGO, new Vector3(transformPos.x + randLoc.x * hallWidth, transformPos.y + agentGO.transform.localScale.y / 2, transformPos.z + randLoc.z * hallWidth), Quaternion.identity);
         agentObject.transform.parent = gameObject.transform;
         //rollerAgentScript = agentObject.GetComponent<RollerAgent>();
     }
@@ -225,7 +226,8 @@ public class MazeConstructor : MonoBehaviour
                     Vector3 v3 = new Vector3(xPos, 0, yPos);
                     randLoc = v3;
                     //set poition taken in the maze data array, to avoid overlap on next spawns
-                    data[yPos, xPos] = 1;
+                    // ToDo: Fix this
+                    //data[yPos, xPos] = 1;
                     notValidLoc = false;
                     return;
                 }
