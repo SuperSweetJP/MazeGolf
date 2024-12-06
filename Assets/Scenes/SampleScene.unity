@@ -343,8 +343,8 @@ MonoBehaviour:
   floorMat: {fileID: 2100000, guid: 79f64ed6f5d6d374d91c3a0af4070258, type: 2}
   wallMat: {fileID: 2100000, guid: cba66c276aed0874091de1c33eb3950d, type: 2}
   roofMat: {fileID: 2100000, guid: 663834164c6a04740aaa1b778249ce7e, type: 2}
-  xSize: 16
-  ySize: 19
+  xSize: 13
+  ySize: 15
   placementThreshold: 0.68
   hallWidth: 3.75
   hallHeight: 3.5
