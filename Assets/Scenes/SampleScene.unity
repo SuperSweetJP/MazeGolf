@@ -302,7 +302,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5643395, y: 0, z: 0, w: 0.8255428}
-  m_LocalPosition: {x: 24.5, y: 38.634, z: 4.868}
+  m_LocalPosition: {x: 19.36, y: 65.64, z: -1.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -343,8 +343,8 @@ MonoBehaviour:
   floorMat: {fileID: 2100000, guid: 79f64ed6f5d6d374d91c3a0af4070258, type: 2}
   wallMat: {fileID: 2100000, guid: cba66c276aed0874091de1c33eb3950d, type: 2}
   roofMat: {fileID: 2100000, guid: 663834164c6a04740aaa1b778249ce7e, type: 2}
-  xSize: 13
-  ySize: 15
+  xSize: 15
+  ySize: 11
   placementThreshold: 0.68
   hallWidth: 3.75
   hallHeight: 3.5

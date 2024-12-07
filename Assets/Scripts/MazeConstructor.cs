@@ -173,7 +173,7 @@ public class MazeConstructor : MonoBehaviour
 
     public void setupWorld()
     {
-        // SpawnTargets();
+        SpawnTargets();
         //place player
         FindRandomPosition();
         //this.transform.position = new Vector3(mazeConstructor.randLoc.x * mazeConstructor.hallWidth, this.transform.localScale.y/2, mazeConstructor.randLoc.z * mazeConstructor.hallWidth);
@@ -227,7 +227,7 @@ public class MazeConstructor : MonoBehaviour
                     randLoc = v3;
                     //set poition taken in the maze data array, to avoid overlap on next spawns
                     // ToDo: Fix this
-                    //data[yPos, xPos] = 1;
+                    data[yPos, xPos] = 1;
                     notValidLoc = false;
                     return;
                 }
@@ -285,7 +285,7 @@ public class MazeConstructor : MonoBehaviour
             {
                 randV3 = new Vector3(xPos, 0, yPos);
                 //set poition taken in the maze data array, to avoid overlap on next spawns
-                data[yPos, xPos] = 1;
+                //data[yPos, xPos] = 1;
                 notValidLoc = false;
             }
         }
