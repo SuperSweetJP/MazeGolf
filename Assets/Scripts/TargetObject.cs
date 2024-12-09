@@ -8,7 +8,7 @@ public class TargetObject : MonoBehaviour
     public float distLimit = 1.0f;
     private Renderer thisRenderer;
     private GameObject playerObj;
-    private bool playerCollider = false;
+    // private bool playerCollider = false;
     public MazeConstructor mazeConstructor;
     private Vector3 newLocation = new Vector3();
     public int xPos;
@@ -33,7 +33,7 @@ public class TargetObject : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
         {
-            playerCollider = true;
+            // playerCollider = true;
             mazeConstructor.score += 1;
             //add reward
             //agentScript.injectReward = true;
@@ -41,7 +41,7 @@ public class TargetObject : MonoBehaviour
             if (mazeConstructor.checkFreeSpaces())
             {
                 newLocation = mazeConstructor.GetRandVector();                
-                mazeConstructor.data[xPos, zPos] = 0;
+                //mazeConstructor.data[xPos, zPos] = 0;
                 this.transform.position = new Vector3(transformPos.x + newLocation.x * hallWidth, transformPos.y + this.transform.localScale.y / 2, transformPos.z + newLocation.z * hallWidth);
                 xPos = (int)newLocation.x;
                 zPos = (int)newLocation.z;
@@ -55,9 +55,9 @@ public class TargetObject : MonoBehaviour
 
     private void OnTriggerExit(Collider col)
     {
-        if (col.gameObject.tag == "Player")
-        {
-            playerCollider = false;
-        }
+        //if (col.gameObject.tag == "Player")
+        //{
+        //    playerCollider = false;
+        //}
     }
 }

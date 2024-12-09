@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 public class MazeConstructor : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class MazeConstructor : MonoBehaviour
     [SerializeField] private Material floorMat;
     [SerializeField] private Material wallMat;
     [SerializeField] private Material roofMat;
+    [SerializeField] private PhysicsMaterial wallPhysicsMat;
 
     private MazeDataGenerator dataGenerator;
     private MazeMeshGenerator meshGenerator;
@@ -26,6 +28,7 @@ public class MazeConstructor : MonoBehaviour
     public int score = 0;
     public int maxTargets = 4;
     public List<GameObject> targetGOList = new List<GameObject>();
+    private GameObject mazeGo;
     public bool allTargetsReached = false;
 
     public Vector3 transformPos;
@@ -46,8 +49,6 @@ public class MazeConstructor : MonoBehaviour
             {1, 1, 1}
         };
 
-        //spawnPoints = new Vector3[x];
-
         dataGenerator = new MazeDataGenerator();
         meshGenerator = new MazeMeshGenerator();
         transformPos = transform.position;
@@ -61,39 +62,27 @@ public class MazeConstructor : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Object.Destroy(agentObject);
-            foreach (GameObject i in targetGOList)
-            {
-                Object.Destroy(i);
-            }
-
-            setupWorld();
-        }
-    }
-
-    void FixedUpdate()
-    {
-        //if (this.transform.localPosition.y < 0)
+        //if (Input.GetKeyDown(KeyCode.R))
         //{
-        //    // If the Agent fell, zero its momentum
-        //    agentObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-        //    agentObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        //    FindRandomPosition();
-        //    this.transform.localPosition = new Vector3(transformPos.x + randLoc.x * hallWidth, transformPos.y + this.transform.localScale.y / 2, transformPos.z + randLoc.z * hallWidth);
+        //    Object.Destroy(agentObject);
+        //    foreach (GameObject i in targetGOList)
+        //    {
+        //        Object.Destroy(i);
+        //    }
+
+        //    setupWorld();
         //}
-        ////When all goals reached, do something
-        //if (score == targetGOList.Count)
+
+        //if (Input.GetKeyDown(KeyCode.T))
         //{
-        //    //Reset maze later comes here
-        //    score = 0;
-        //    //Debug.Log(score);
-        //    //end episode?
-        //    rollerAgentScript.EndEpisode();
-        //    targetGOList.Clear();
-        //    SpawnTargets();
-        //    allTargetsReached = true;
+        //    Object.Destroy(agentObject);
+        //    foreach (GameObject i in targetGOList)
+        //    {
+        //        Object.Destroy(i);
+        //    }
+        //    Object.Destroy(mazeGo);
+        //    GenerateNewMaze(xSize, ySize, placementThreshold);
+        //    setupWorld();
         //}
     }
 
@@ -104,32 +93,28 @@ public class MazeConstructor : MonoBehaviour
             Debug.LogError("Odd numbers work better for dungeon size.");
         }
 
-        //DisposeOldMaze();
-
         data = dataGenerator.FromDimensions(sizeRows, sizeCols, plTresh);
-
-        //get obstacle coordinates here
-        //Debug.Log(data);
 
         DisplayMaze();
     }
 
     private void DisplayMaze()
     {
-        GameObject go = new GameObject();
-        go.transform.position = Vector3.zero;
-        go.transform.parent = gameObject.transform;
-        go.name = "Procedural Maze";
-        go.tag = "Generated";
+        mazeGo = new GameObject();
+        mazeGo.transform.position = Vector3.zero;
+        mazeGo.transform.parent = gameObject.transform;
+        mazeGo.name = "Procedural Maze";
+        mazeGo.tag = "Generated";
 
 
-        MeshFilter mf = go.AddComponent<MeshFilter>();
+        MeshFilter mf = mazeGo.AddComponent<MeshFilter>();
         mf.mesh = meshGenerator.FromData(data, hallWidth, hallHeight, transformPos);
 
-        MeshCollider mc = go.AddComponent<MeshCollider>();
+        MeshCollider mc = mazeGo.AddComponent<MeshCollider>();
         mc.sharedMesh = mf.mesh;
+        mc.material = wallPhysicsMat;
 
-        MeshRenderer mr = go.AddComponent<MeshRenderer>();
+        MeshRenderer mr = mazeGo.AddComponent<MeshRenderer>();
         mr.materials = new Material[3] { floorMat, wallMat, roofMat };
     }
 
@@ -219,7 +204,7 @@ public class MazeConstructor : MonoBehaviour
         {
             while (notValidLoc)
             {
-                xPos = Random.Range(0, rMax);
+                xPos = Random.Range(0, cMax);
                 yPos = Random.Range(0, rMax);
                 if (maze[yPos, xPos] == 0)
                 {
@@ -227,7 +212,7 @@ public class MazeConstructor : MonoBehaviour
                     randLoc = v3;
                     //set poition taken in the maze data array, to avoid overlap on next spawns
                     // ToDo: Fix this
-                    data[yPos, xPos] = 1;
+                    // data[yPos, xPos] = 1;
                     notValidLoc = false;
                     return;
                 }
@@ -279,7 +264,7 @@ public class MazeConstructor : MonoBehaviour
 
         while (notValidLoc)
         {
-            xPos = Random.Range(0, rMax);
+            xPos = Random.Range(0, cMax);
             yPos = Random.Range(0, rMax);
             if (maze[yPos, xPos] == 0)
             {
