@@ -74,3 +74,4 @@ crashlytics-build.properties
 # Prorotype materials
 /Assets/Thirdparty/*
 /Assets/Materials/*
+/Assets/TextMesh Pro/*
