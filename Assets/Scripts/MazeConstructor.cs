@@ -86,6 +86,24 @@ public class MazeConstructor : MonoBehaviour
         //}
     }
 
+    public void RespawnPlayer()
+    {
+        Object.Destroy(agentObject);
+        instantiatePlayer();
+    }
+
+    public void ReGenerateMaze()
+    {
+        Object.Destroy(agentObject);
+        foreach (GameObject i in targetGOList)
+        {
+            Object.Destroy(i);
+        }
+        Object.Destroy(mazeGo);
+        GenerateNewMaze(xSize, ySize, placementThreshold);
+        setupWorld();
+    }
+
     public void GenerateNewMaze(int sizeRows, int sizeCols, float plTresh)
     {
         if (sizeRows % 2 == 0 && sizeCols % 2 == 0)
@@ -162,9 +180,14 @@ public class MazeConstructor : MonoBehaviour
         //place player
         FindRandomPosition();
         //this.transform.position = new Vector3(mazeConstructor.randLoc.x * mazeConstructor.hallWidth, this.transform.localScale.y/2, mazeConstructor.randLoc.z * mazeConstructor.hallWidth);
+        instantiatePlayer();
+        //rollerAgentScript = agentObject.GetComponent<RollerAgent>();
+    }
+
+    public void instantiatePlayer()
+    {
         agentObject = Instantiate(agentGO, new Vector3(transformPos.x + randLoc.x * hallWidth, transformPos.y + agentGO.transform.localScale.y / 2, transformPos.z + randLoc.z * hallWidth), Quaternion.identity);
         agentObject.transform.parent = gameObject.transform;
-        //rollerAgentScript = agentObject.GetComponent<RollerAgent>();
     }
 
     public void DisposeOldMaze()

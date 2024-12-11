@@ -152,9 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 995ce70575ad7c44c91676f81ebe8fed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceAmount: 25
+  forceAmount: 15
   canShootBool: 1
-  velocityThreshold: 6
+  velocityThreshold: 35
   stopDelay: 0.5
   canShootMaterial: {fileID: 2100000, guid: 245db3bbaf61a5343a38c0cf71bbecee, type: 2}
   waitMaterial: {fileID: 2100000, guid: abee6ee8c86562c4795a94dc7de1d34b, type: 2}

@@ -9,7 +9,7 @@ public class TargetObject : MonoBehaviour
     private Renderer thisRenderer;
     private GameObject playerObj;
     // private bool playerCollider = false;
-    public MazeConstructor mazeConstructor;
+    private MazeConstructor mazeConstructor;
     private Vector3 newLocation = new Vector3();
     public int xPos;
     public int zPos;

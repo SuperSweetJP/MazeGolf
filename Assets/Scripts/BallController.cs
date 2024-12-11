@@ -19,6 +19,8 @@ public class BallController : MonoBehaviour
     private Vector2 touchEndPosition;
     private InputAction keyPressAction;
 
+    private MazeConstructor mazeConstructor;
+
     [SerializeField]
     private bool canShootBool = true;
     public float velocityThreshold = 1.0f;
@@ -55,38 +57,27 @@ public class BallController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>(); // Reference to the Rigidbody
         GetComponent<MeshRenderer>().material = canShootMaterial;
+        mazeConstructor = transform.root.gameObject.GetComponent<MazeConstructor>();
     }
 
     private void OnGotKeyPress(InputAction.CallbackContext context)
     {
-        Debug.Log(context.control.name);
-        Debug.Log("key press");
+        if (context.control.name == "r")
+        {
+            // regenerate maze
+            mazeConstructor.ReGenerateMaze();
+        }
     }
 
     private void OnTouchStart(InputAction.CallbackContext context)
     {
-        // Read and store the touch start position
         touchStartPosition = touchPositionAction.ReadValue<Vector2>();
-        Debug.Log($"Touch Start Position: {touchStartPosition}");
     }
 
     private void OnTouchEnd(InputAction.CallbackContext context)
     {
-        // Read and store the touch end position
         touchEndPosition = touchPositionAction.ReadValue<Vector2>();
-        Debug.Log($"Touch End Position: {touchEndPosition}");
         Shoot(touchEndPosition - touchStartPosition);
-    }
-
-    private void OnMouseDown()
-    {
-        //mousePressDownPos = Input.mousePosition;
-    }
-
-    private void OnMouseUp()
-    {
-        //mouseReleasePos = Input.mousePosition;
-        //Shoot(mouseReleasePos - mousePressDownPos);
     }
 
     void Shoot(Vector3 Force)
