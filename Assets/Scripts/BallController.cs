@@ -7,11 +7,14 @@ using static UnityEngine.Timeline.DirectorControlPlayable;
 public class BallController : MonoBehaviour
 {
     public float forceAmount = 10f; // Adjust force amount in the Inspector
-    [SerializeField] public Rigidbody rb;
-    [SerializeField] public GameObject playerBall;
+    private Rigidbody rb;
+    private GameObject playerBall;
 
     private Vector3 mousePressDownPos;
     private Vector3 mouseReleasePos;
+    // Projection
+    [SerializeField] Projection projection;
+    private bool projectTrajectory = false;
 
     // Touch 
     private PlayerInput playerInput;
@@ -56,10 +59,17 @@ public class BallController : MonoBehaviour
         keyPressAction.performed -= OnGotKeyPress;
     }
 
+    public void setPlayer(GameObject player)
+    {
+        playerBall = player;
+        rb = player.GetComponent<Rigidbody>();
+    }
+
     void Start()
     {
         mazeConstructor = GameObject.Find("MazeConstructor").transform;
         mazeConstructorScript = mazeConstructor.GetComponent<MazeConstructor>();
+        projection = mazeConstructor.GetComponent<Projection>();
 
         foreach (Transform obj in mazeConstructor)
         {
@@ -85,24 +95,30 @@ public class BallController : MonoBehaviour
     private void OnTouchStart(InputAction.CallbackContext context)
     {
         touchStartPosition = touchPositionAction.ReadValue<Vector2>();
+        // Start projection
+        projectTrajectory = true;
     }
 
     private void OnTouchEnd(InputAction.CallbackContext context)
     {
+        // end projection 
+        projectTrajectory = false;
         touchEndPosition = touchPositionAction.ReadValue<Vector2>();
-        Shoot(touchEndPosition - touchStartPosition);
+        Shoot(rb, touchEndPosition - touchStartPosition, false);
     }
 
-    void Shoot(Vector3 Force)
+    public void Shoot(Rigidbody rigidb, Vector3 Force, bool isProjection)
     {
-        if (!canShootBool)
+        if (!isProjection)
         {
-            Debug.Log("Can't shoot");
-            return;
+            if (!canShootBool)
+            {
+                Debug.Log("Can't shoot");
+                return;
+            }
+            canShootModify(false);
         }
-
-        canShootModify(false);
-        rb.AddForce(new Vector3(Force.x, Force.y, Force.y) * forceAmount);
+        rigidb.AddForce(new Vector3(Force.x, Force.y, Force.y) * forceAmount);
     }
 
     void canShootModify(bool waitForShoot)
@@ -122,6 +138,12 @@ public class BallController : MonoBehaviour
 
     void FixedUpdate()
     {
+        // get current touch position
+        if (projectTrajectory)
+        {
+            projection.SimulateTrajectory(touchStartPosition, touchPositionAction.ReadValue<Vector2>());
+        }
+
         if (!canShootBool)
         {
             if (rb.linearVelocity.magnitude <= velocityThreshold)

@@ -855,6 +855,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mazeParent: {fileID: 0}
+  ghostPlayer: {fileID: 0}
+  playerController: {fileID: 1494540803}
 --- !u!1 &1476121374
 GameObject:
   m_ObjectHideFlags: 0
