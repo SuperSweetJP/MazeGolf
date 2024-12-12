@@ -9,11 +9,13 @@ public class MazeConstructor : MonoBehaviour
     [Range(0, 1)]
     public float placementTreshold = .68f;
 
-    public GameObject agentGO;
+    public GameObject agentGO; 
     [SerializeField] private Material floorMat;
     [SerializeField] private Material wallMat;
     [SerializeField] private Material roofMat;
     [SerializeField] private PhysicsMaterial wallPhysicsMat;
+
+    [SerializeField] private GameObject playerControler;
 
     private MazeDataGenerator dataGenerator;
     private MazeMeshGenerator meshGenerator;
@@ -52,12 +54,14 @@ public class MazeConstructor : MonoBehaviour
         dataGenerator = new MazeDataGenerator();
         meshGenerator = new MazeMeshGenerator();
         transformPos = transform.position;
+
+        GenerateNewMaze(xSize, ySize, placementThreshold);
+        setupWorld();
     }
 
     void Start()
     {
-        GenerateNewMaze(xSize, ySize, placementThreshold);
-        setupWorld();
+
     }
 
     private void Update()
@@ -188,6 +192,8 @@ public class MazeConstructor : MonoBehaviour
     {
         agentObject = Instantiate(agentGO, new Vector3(transformPos.x + randLoc.x * hallWidth, transformPos.y + agentGO.transform.localScale.y / 2, transformPos.z + randLoc.z * hallWidth), Quaternion.identity);
         agentObject.transform.parent = gameObject.transform;
+        playerControler.GetComponent<BallController>().playerBall = agentObject;
+        playerControler.GetComponent<BallController>().rb = agentObject.GetComponent<Rigidbody>();
     }
 
     public void DisposeOldMaze()

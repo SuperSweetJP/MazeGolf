@@ -1,12 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.Windows;
 using static UnityEngine.Timeline.DirectorControlPlayable;
 
 public class BallController : MonoBehaviour
 {
     public float forceAmount = 10f; // Adjust force amount in the Inspector
-    private Rigidbody rb;
+    [SerializeField] public Rigidbody rb;
+    [SerializeField] public GameObject playerBall;
 
     private Vector3 mousePressDownPos;
     private Vector3 mouseReleasePos;
@@ -19,7 +21,8 @@ public class BallController : MonoBehaviour
     private Vector2 touchEndPosition;
     private InputAction keyPressAction;
 
-    private MazeConstructor mazeConstructor;
+    private Transform mazeConstructor;
+    private MazeConstructor mazeConstructorScript;
 
     [SerializeField]
     private bool canShootBool = true;
@@ -55,9 +58,19 @@ public class BallController : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>(); // Reference to the Rigidbody
-        GetComponent<MeshRenderer>().material = canShootMaterial;
-        mazeConstructor = transform.root.gameObject.GetComponent<MazeConstructor>();
+        mazeConstructor = GameObject.Find("MazeConstructor").transform;
+        mazeConstructorScript = mazeConstructor.GetComponent<MazeConstructor>();
+
+        foreach (Transform obj in mazeConstructor)
+        {
+            if (obj.tag == "Player")
+            {
+                playerBall = obj.gameObject;
+                break;
+            }
+        }
+        rb = playerBall.GetComponent<Rigidbody>(); // Reference to the Rigidbody
+        playerBall.GetComponent<MeshRenderer>().material = canShootMaterial;
     }
 
     private void OnGotKeyPress(InputAction.CallbackContext context)
@@ -65,7 +78,7 @@ public class BallController : MonoBehaviour
         if (context.control.name == "r")
         {
             // regenerate maze
-            mazeConstructor.ReGenerateMaze();
+            mazeConstructorScript.ReGenerateMaze();
         }
     }
 
@@ -97,12 +110,12 @@ public class BallController : MonoBehaviour
         if (!waitForShoot)
         {
             stationaryTime = 0f;
-            GetComponent<MeshRenderer>().sharedMaterial = waitMaterial;
+            playerBall.GetComponent<MeshRenderer>().sharedMaterial = waitMaterial;
             canShootBool = false;
         }
         else
         {
-            GetComponent<MeshRenderer>().material = canShootMaterial;
+            playerBall.GetComponent<MeshRenderer>().material = canShootMaterial;
             canShootBool = true;
         }
     }
