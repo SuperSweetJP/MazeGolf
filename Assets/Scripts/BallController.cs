@@ -143,7 +143,7 @@ public class BallController : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // get current touch position
         // & previousBallposition == playerBall.transform.position

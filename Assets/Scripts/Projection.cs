@@ -44,8 +44,6 @@ public class Projection : MonoBehaviour
 
     public void SimulateTrajectory(Vector2 startPos, Vector2 currentPos)
     {
-        // Debug.Log($"{startPos} {currentPos}");
-        //actualPlayer = _mazeParent.gameObject.GetComponent<MazeConstructor>().agentObject;
         ghostPlayer.transform.position = actualPlayer.transform.position;
         ghostPlayer.GetComponent<Rigidbody>().linearVelocity = actualPlayer.GetComponent<Rigidbody>().linearVelocity;
         ghostPlayer.GetComponent<Rigidbody>().angularVelocity = actualPlayer.GetComponent<Rigidbody>().angularVelocity;
@@ -55,7 +53,9 @@ public class Projection : MonoBehaviour
 
         _line.positionCount = _maxPhisicsFrames;
 
-        for (int i = 0; i < _maxPhisicsFrames; i++)
+        // set line start to player location
+        _line.SetPosition(0, ghostPlayer.transform.position);
+        for (int i = 1; i < _maxPhisicsFrames; i++)
         {
             _physicsScene.Simulate(Time.fixedDeltaTime);
             _line.SetPosition(i, ghostPlayer.transform.position);
