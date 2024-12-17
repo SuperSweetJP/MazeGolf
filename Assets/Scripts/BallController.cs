@@ -111,15 +111,21 @@ public class BallController : MonoBehaviour
     {
         touchStartPosition = touchPositionAction.ReadValue<Vector2>();
         // Start projection
-        mazeConstructor.GetComponent<LineRenderer>().enabled = true;
-        projectTrajectory = true;
+        if (projectionEnabled)
+        {
+            mazeConstructor.GetComponent<LineRenderer>().enabled = true;
+            projectTrajectory = true;
+        }
     }
 
     private void OnTouchEnd(InputAction.CallbackContext context)
     {
         // end projection 
-        projectTrajectory = false;
-        mazeConstructor.GetComponent<LineRenderer>().enabled = false;
+        if (projectionEnabled)
+        {
+            projectTrajectory = false;
+            mazeConstructor.GetComponent<LineRenderer>().enabled = false;
+        }
         touchEndPosition = touchPositionAction.ReadValue<Vector2>();
         Shoot(rb, touchEndPosition - touchStartPosition, false);
     }

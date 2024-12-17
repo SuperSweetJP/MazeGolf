@@ -107,6 +107,7 @@ public class MazeConstructor : MonoBehaviour
         Object.Destroy(mazeGo);
         GenerateNewMaze(xSize, ySize, placementThreshold);
         setupWorld();
+        this.GetComponent<Projection>().SetGhostMaze(mazeGo);
     }
 
     public void GenerateNewMaze(int sizeRows, int sizeCols, float plTresh)

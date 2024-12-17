@@ -10,6 +10,7 @@ public class Projection : MonoBehaviour
     [SerializeField] private GameObject ghostPlayer;
     public GameObject actualPlayer;
     [SerializeField] private GameObject playerController;
+    private GameObject ghostMaze;
 
     private void Start()
     {
@@ -17,8 +18,7 @@ public class Projection : MonoBehaviour
         CreatePhysicsScene();
     }
 
-
-    void CreatePhysicsScene()
+    public void CreatePhysicsScene()
     {
         _simulationScene = SceneManager.CreateScene("Simulation", new CreateSceneParameters(LocalPhysicsMode.Physics3D));
         _physicsScene = _simulationScene.GetPhysicsScene();
@@ -35,8 +35,20 @@ public class Projection : MonoBehaviour
                     ghostPlayer.transform.Find("ParticleSystem").gameObject.SetActive(false);
                     actualPlayer = obj.gameObject;
                 }
+                else if (obj.tag == "Generated")
+                {
+                    ghostMaze = ghostObj;
+                }
             }
         }
+    }
+
+    public void SetGhostMaze(GameObject newMazeGO)
+    {
+        Object.Destroy(ghostMaze);
+        ghostMaze = Instantiate(newMazeGO, newMazeGO.transform.position, newMazeGO.transform.rotation);
+        ghostMaze.GetComponent<Renderer>().enabled = false;
+        SceneManager.MoveGameObjectToScene(ghostMaze, _simulationScene);
     }
 
     [SerializeField] private LineRenderer _line;

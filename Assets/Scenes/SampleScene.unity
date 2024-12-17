@@ -377,7 +377,7 @@ GameObject:
   - component: {fileID: 888717063}
   - component: {fileID: 888717064}
   m_Layer: 5
-  m_Name: Btn
+  m_Name: BtnRegenerate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -400,7 +400,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 296, y: 1002}
+  m_AnchoredPosition: {x: 242.8, y: 1002}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &888717061
@@ -485,9 +485,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 888717064}
-        m_TargetAssemblyTypeName: ButtonScript, Assembly-CSharp
-        m_MethodName: OnButtonClick
+      - m_Target: {fileID: 1298478130}
+        m_TargetAssemblyTypeName: MazeConstructor, Assembly-CSharp
+        m_MethodName: ReGenerateMaze
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
