@@ -14,6 +14,7 @@ public class BallController : MonoBehaviour
     private Vector3 mouseReleasePos;
     // Projection
     [SerializeField] Projection projection;
+    public bool projectionEnabled = true;
     private bool projectTrajectory = false;
     private Vector2 touchPreviousFrame;
     private Vector3 previousBallposition;
@@ -67,6 +68,18 @@ public class BallController : MonoBehaviour
         rb = player.GetComponent<Rigidbody>();
     }
 
+    public void setProjection()
+    {
+        if (projectionEnabled)
+        {
+            projectionEnabled = false;
+        } else
+        {
+            projectionEnabled = true;
+        }
+
+    }
+
     void Start()
     {
         mazeConstructor = GameObject.Find("MazeConstructor").transform;
@@ -98,6 +111,7 @@ public class BallController : MonoBehaviour
     {
         touchStartPosition = touchPositionAction.ReadValue<Vector2>();
         // Start projection
+        mazeConstructor.GetComponent<LineRenderer>().enabled = true;
         projectTrajectory = true;
     }
 
@@ -105,6 +119,7 @@ public class BallController : MonoBehaviour
     {
         // end projection 
         projectTrajectory = false;
+        mazeConstructor.GetComponent<LineRenderer>().enabled = false;
         touchEndPosition = touchPositionAction.ReadValue<Vector2>();
         Shoot(rb, touchEndPosition - touchStartPosition, false);
     }
@@ -113,17 +128,12 @@ public class BallController : MonoBehaviour
     {
         if (!isProjection)
         {
-            Debug.Log($"actual {Force}");
             if (!canShootBool)
             {
                 Debug.Log("Can't shoot");
                 return;
             }
             canShootModify(false);
-        }
-        else
-        {
-            Debug.Log($"projection {Force}");
         }
         rigidb.AddForce(new Vector3(Force.x, Force.y, Force.y) * forceAmount);
     }
@@ -147,14 +157,18 @@ public class BallController : MonoBehaviour
     {
         // get current touch position
         // & previousBallposition == playerBall.transform.position
-        if (projectTrajectory & touchPreviousFrame != touchPositionAction.ReadValue<Vector2>() )
+        if (projectionEnabled)
         {
-            touchPreviousFrame = touchPositionAction.ReadValue<Vector2>();
-            projection.SimulateTrajectory(touchStartPosition, touchPreviousFrame);
-        } else if (projectTrajectory & previousBallposition != playerBall.transform.position)
-        {
-            previousBallposition = playerBall.transform.position;
-            projection.SimulateTrajectory(touchStartPosition, touchPreviousFrame);
+            if (projectTrajectory & touchPreviousFrame != touchPositionAction.ReadValue<Vector2>())
+            {
+                touchPreviousFrame = touchPositionAction.ReadValue<Vector2>();
+                projection.SimulateTrajectory(touchStartPosition, touchPreviousFrame);
+            }
+            else if (projectTrajectory & previousBallposition != playerBall.transform.position)
+            {
+                previousBallposition = playerBall.transform.position;
+                projection.SimulateTrajectory(touchStartPosition, touchPreviousFrame);
+            }
         }
 
         if (!canShootBool)
