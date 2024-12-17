@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.EnhancedTouch;
 
 public class MazeConstructor : MonoBehaviour
 {
@@ -193,6 +194,7 @@ public class MazeConstructor : MonoBehaviour
         agentObject = Instantiate(agentGO, new Vector3(transformPos.x + randLoc.x * hallWidth, transformPos.y + agentGO.transform.localScale.y / 2, transformPos.z + randLoc.z * hallWidth), Quaternion.identity);
         agentObject.transform.parent = gameObject.transform;
         playerControler.GetComponent<BallController>().setPlayer(agentObject);
+        this.GetComponent<Projection>().actualPlayer = agentObject;
     }
 
     public void DisposeOldMaze()

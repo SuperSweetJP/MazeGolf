@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +8,7 @@ public class Projection : MonoBehaviour
     private PhysicsScene _physicsScene;
     [SerializeField] private Transform _mazeParent;
     [SerializeField] private GameObject ghostPlayer;
+    public GameObject actualPlayer;
     [SerializeField] private GameObject playerController;
 
     private void Start()
@@ -30,22 +32,34 @@ public class Projection : MonoBehaviour
                 if (obj.tag == "Player")
                 {
                     ghostPlayer = ghostObj;
+                    ghostPlayer.transform.Find("ParticleSystem").gameObject.SetActive(false);
+                    actualPlayer = obj.gameObject;
                 }
             }
         }
     }
 
+    [SerializeField] private LineRenderer _line;
+    [SerializeField] private int _maxPhisicsFrames = 100;
+
     public void SimulateTrajectory(Vector2 startPos, Vector2 currentPos)
     {
-        Debug.Log($"{startPos} {currentPos}");
+        // Debug.Log($"{startPos} {currentPos}");
+        //actualPlayer = _mazeParent.gameObject.GetComponent<MazeConstructor>().agentObject;
+        ghostPlayer.transform.position = actualPlayer.transform.position;
+        ghostPlayer.GetComponent<Rigidbody>().linearVelocity = actualPlayer.GetComponent<Rigidbody>().linearVelocity;
+        ghostPlayer.GetComponent<Rigidbody>().angularVelocity = actualPlayer.GetComponent<Rigidbody>().angularVelocity;
+
         var _ballControler = playerController.GetComponent<BallController>();
         _ballControler.Shoot(ghostPlayer.GetComponent<Rigidbody>(), currentPos - startPos, true);
 
+        _line.positionCount = _maxPhisicsFrames;
 
-        // I would use the shoot script here from the BallController script.
-        // I need to modify the Shoot method, for it to accept game object.
-
-        // In addition, currently shoot is being called onTouchEnd. I need to trigger this by passing in current finger location.
-        // I call this method from the Update of BallController. There I need to get the current finger.
+        for (int i = 0; i < _maxPhisicsFrames; i++)
+        {
+            _physicsScene.Simulate(Time.fixedDeltaTime);
+            _line.SetPosition(i, ghostPlayer.transform.position);
+        }
+        //Destroy(ghostPlayer.gameObject);
     }
 }

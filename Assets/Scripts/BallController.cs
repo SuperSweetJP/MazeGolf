@@ -15,6 +15,8 @@ public class BallController : MonoBehaviour
     // Projection
     [SerializeField] Projection projection;
     private bool projectTrajectory = false;
+    private Vector2 touchPreviousFrame;
+    private Vector3 previousBallposition;
 
     // Touch 
     private PlayerInput playerInput;
@@ -111,12 +113,17 @@ public class BallController : MonoBehaviour
     {
         if (!isProjection)
         {
+            Debug.Log($"actual {Force}");
             if (!canShootBool)
             {
                 Debug.Log("Can't shoot");
                 return;
             }
             canShootModify(false);
+        }
+        else
+        {
+            Debug.Log($"projection {Force}");
         }
         rigidb.AddForce(new Vector3(Force.x, Force.y, Force.y) * forceAmount);
     }
@@ -136,12 +143,18 @@ public class BallController : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    void Update()
     {
         // get current touch position
-        if (projectTrajectory)
+        // & previousBallposition == playerBall.transform.position
+        if (projectTrajectory & touchPreviousFrame != touchPositionAction.ReadValue<Vector2>() )
         {
-            projection.SimulateTrajectory(touchStartPosition, touchPositionAction.ReadValue<Vector2>());
+            touchPreviousFrame = touchPositionAction.ReadValue<Vector2>();
+            projection.SimulateTrajectory(touchStartPosition, touchPreviousFrame);
+        } else if (projectTrajectory & previousBallposition != playerBall.transform.position)
+        {
+            previousBallposition = playerBall.transform.position;
+            projection.SimulateTrajectory(touchStartPosition, touchPreviousFrame);
         }
 
         if (!canShootBool)
