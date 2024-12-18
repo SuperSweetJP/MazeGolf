@@ -1143,7 +1143,7 @@ MonoBehaviour:
   actualPlayer: {fileID: 0}
   playerController: {fileID: 1494540803}
   _line: {fileID: 1298478133}
-  _maxPhisicsFrames: 30
+  _maxPhisicsFrames: 20
 --- !u!120 &1298478133
 LineRenderer:
   serializedVersion: 2
