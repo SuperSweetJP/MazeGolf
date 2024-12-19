@@ -26,6 +26,8 @@ public class BallController : MonoBehaviour
     private Vector2 touchStartPosition;
     private Vector2 touchEndPosition;
     private InputAction keyPressAction;
+    // Mouse
+    private Vector2 mouseReleasePosition;
 
     private Transform mazeConstructor;
     private MazeConstructor mazeConstructorScript;
@@ -41,6 +43,7 @@ public class BallController : MonoBehaviour
 
     private void Awake()
     {
+        Application.targetFrameRate = 60;
         playerInput = GetComponent<PlayerInput>();
         touchPressAction = playerInput.actions["TouchPress"];
         touchPositionAction = playerInput.actions["TouchPosition"];
@@ -116,8 +119,11 @@ public class BallController : MonoBehaviour
             mazeConstructor.GetComponent<LineRenderer>().enabled = true;
             projectTrajectory = true;
         }
+        rect1.gameObject.SetActive(true);
+        rect2.gameObject.SetActive(true);
     }
 
+    // Canceled state is probably not the correct one to use here.
     private void OnTouchEnd(InputAction.CallbackContext context)
     {
         // end projection 
@@ -126,7 +132,18 @@ public class BallController : MonoBehaviour
             projectTrajectory = false;
             mazeConstructor.GetComponent<LineRenderer>().enabled = false;
         }
+        rect1.gameObject.SetActive(false);
+        rect2.gameObject.SetActive(false);
         touchEndPosition = touchPositionAction.ReadValue<Vector2>();
+        // Workaround to get position at mouse up, Input system probably needs to be used differently than this.
+        //Debug.Log(context.control.device);
+        //if (context.control.device is Mouse)
+        //{
+        //    touchEndPosition = mouseReleasePos;
+        //} else
+        //{
+        //    touchEndPosition = touchPositionAction.ReadValue<Vector2>();
+        //}
         Shoot(rb, touchEndPosition - touchStartPosition, false);
     }
 
@@ -188,5 +205,20 @@ public class BallController : MonoBehaviour
                 }
             }
         }
+    }
+
+    [SerializeField] RectTransform rect1;
+    [SerializeField] RectTransform rect2;
+
+    void Update()
+    {
+        if (Mouse.current != null && Mouse.current.leftButton.isPressed)
+        {
+            mouseReleasePos = Mouse.current.position.ReadValue();
+            Debug.Log(mouseReleasePos);
+        }
+        rect1.position = touchStartPosition;
+        rect2.position = touchPositionAction.ReadValue<Vector2>();
+
     }
 }
