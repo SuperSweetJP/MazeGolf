@@ -9,6 +9,7 @@ public class MazeConstructor : MonoBehaviour
     public bool showDebug;
     [Range(0, 1)]
     public float placementTreshold = .68f;
+    public float roundFactor = .2f;
 
     public GameObject agentGO; 
     [SerializeField] private Material floorMat;

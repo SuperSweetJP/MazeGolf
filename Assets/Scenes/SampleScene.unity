@@ -155,8 +155,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 413.5, y: 1047}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 474.6, y: 428}
+  m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &562673950
 MonoBehaviour:
@@ -451,7 +451,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 888717059}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -460,8 +460,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 242.8, y: 1047.4}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 233, y: 428}
+  m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &888717061
 MonoBehaviour:
@@ -614,7 +614,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Proj
+  m_text: Toggle projection
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -641,14 +641,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -853,8 +853,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.54928553, y: 0, z: 0, w: 0.83563477}
-  m_LocalPosition: {x: 18.7, y: 37.43, z: -6.18}
+  m_LocalRotation: {x: 0.61969787, y: 0, z: 0, w: 0.7848405}
+  m_LocalPosition: {x: 27.04, y: 32.3, z: 18.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -885,7 +885,7 @@ Transform:
   m_GameObject: {fileID: 1107766618}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.036686, y: 0.013696812, z: 0.022190135}
+  m_LocalPosition: {x: 22.6, y: 0.013696812, z: 0.022190135}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -930,7 +930,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 56.7, y: 0}
+  m_AnchoredPosition: {x: 43.3, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1172611538
@@ -953,7 +953,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Regn
+  m_text: Regenerate maze
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -980,14 +980,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1018,7 +1018,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 110.39636, w: 0}
+  m_margin: {x: 0, y: 0, z: 77.70657, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1140,6 +1140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showDebug: 0
   placementTreshold: 0.68
+  roundFactor: 0.2
   agentGO: {fileID: 2622111389205369194, guid: f4b58a8e898ce8e4a955e439386acdec, type: 3}
   floorMat: {fileID: 2100000, guid: 79f64ed6f5d6d374d91c3a0af4070258, type: 2}
   wallMat: {fileID: 2100000, guid: cba66c276aed0874091de1c33eb3950d, type: 2}
@@ -1147,7 +1148,7 @@ MonoBehaviour:
   wallPhysicsMat: {fileID: 13400000, guid: 712eb615dac521943a90d9f88c8db8b8, type: 2}
   playerControler: {fileID: 1494540803}
   xSize: 15
-  ySize: 11
+  ySize: 15
   placementThreshold: 0.75
   hallWidth: 3.75
   hallHeight: 3.5
@@ -1625,12 +1626,12 @@ PrefabInstance:
     - target: {fileID: 7562382268081143786, guid: c55ff0070d0e8a245bfc3f61ada92296,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -365
+      value: -437
       objectReference: {fileID: 0}
     - target: {fileID: 7562382268081143786, guid: c55ff0070d0e8a245bfc3f61ada92296,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1037
+      value: 398
       objectReference: {fileID: 0}
     - target: {fileID: 7562382268081143786, guid: c55ff0070d0e8a245bfc3f61ada92296,
         type: 3}
@@ -1651,6 +1652,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FPSCounter
+      objectReference: {fileID: 0}
+    - target: {fileID: 7562382268081143788, guid: c55ff0070d0e8a245bfc3f61ada92296,
+        type: 3}
+      propertyPath: m_FontData.m_MinSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7562382268081143788, guid: c55ff0070d0e8a245bfc3f61ada92296,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

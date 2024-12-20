@@ -134,16 +134,18 @@ public class BallController : MonoBehaviour
         }
         rect1.gameObject.SetActive(false);
         rect2.gameObject.SetActive(false);
-        touchEndPosition = touchPositionAction.ReadValue<Vector2>();
-        // Workaround to get position at mouse up, Input system probably needs to be used differently than this.
+        //touchEndPosition = touchPositionAction.ReadValue<Vector2>();
         //Debug.Log(context.control.device);
-        //if (context.control.device is Mouse)
-        //{
-        //    touchEndPosition = mouseReleasePos;
-        //} else
-        //{
-        //    touchEndPosition = touchPositionAction.ReadValue<Vector2>();
-        //}
+
+        // Workaround to get position at mouse up, Input system probably needs to be used differently than this.
+        if (context.control.device is Mouse)
+        {
+            touchEndPosition = mouseReleasePos;
+        }
+        else
+        {
+            touchEndPosition = touchPositionAction.ReadValue<Vector2>();
+        }
         Shoot(rb, touchEndPosition - touchStartPosition, false);
     }
 
